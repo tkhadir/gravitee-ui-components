@@ -61,6 +61,8 @@
             <exclude>src/index.js</exclude>
             <exclude>src/icons/shapes/**</exclude>
             <exclude>**/*.generated.*</exclude>
+            <exclude>dist/</exclude>
+            <exclude>coverage/</exclude>
           </excludes>
         </configuration>
       </plugin>
