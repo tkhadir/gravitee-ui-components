@@ -35,6 +35,14 @@ export class GvResizableViews extends LitElement {
           flex-direction: column;
         }
 
+        :host([direction=horizontal]) .box {
+          flex-direction: row;
+        }
+
+        :host([direction=horizontal]) .layout-icon {
+          display: none;
+        }
+
         * {
           box-sizing: border-box;
         }
@@ -42,9 +50,6 @@ export class GvResizableViews extends LitElement {
         ::slotted(*) {
           display: inline-block;
           width: 100%;
-        }
-
-        ::slotted([slot="bottom"]) {
         }
 
         .bottom {
@@ -64,6 +69,15 @@ export class GvResizableViews extends LitElement {
         .top, .bottom {
           border-left: 1px solid #BFBFBF;
           border-right: 1px solid #BFBFBF;
+          height: 100%;
+        }
+
+        :host([direction=horizontal]) .top {
+          border-right: 0;
+        }
+
+        :host([direction=horizontal]) .bottom {
+          border-left: 0;
         }
 
         .transition .top, .transition .bottom {
@@ -73,13 +87,19 @@ export class GvResizableViews extends LitElement {
         .top {
           overflow-y: auto;
           overflow-x: hidden;
-          height: 50%;
+          height: 80%;
         }
 
         .bottom {
           overflow-y: auto;
           overflow-x: hidden;
-          height: 50%;
+          height: 20%;
+        }
+
+        :host([direction=horizontal]) .top,
+        :host([direction=horizontal]) .bottom {
+          height: 100%;
+          width: 50%;
         }
 
         .resizer {
@@ -94,6 +114,15 @@ export class GvResizableViews extends LitElement {
 
         .resizer > gv-icon {
           margin-right: 8px;
+        }
+
+        :host([direction=horizontal]) .resizer {
+          align-items: flex-start;
+        }
+        
+        :host([direction=horizontal]) .resizer gv-icon {
+          margin-right: -28px;
+          margin-top: 8px;
         }
 
         .resizer[data-direction="vertical"] {
@@ -149,7 +178,14 @@ export class GvResizableViews extends LitElement {
   }
 
   static get properties () {
-    return {};
+    return {
+      direction: { type: String, reflect: true },
+    };
+  }
+
+  constructor () {
+    super();
+    this.direction = 'vertical';
   }
 
   split () {
@@ -253,14 +289,21 @@ export class GvResizableViews extends LitElement {
     this.shadowRoot.querySelectorAll('.resizer').forEach((elt) => this.resizable(elt));
   }
 
+  get shape () {
+    if (this.direction === 'horizontal') {
+      return 'design:vertical';
+    }
+    return 'design:horizontal';
+  }
+
   render () {
     return html`
     <div class="box transition">
       <div class="top"><slot name="top"></slot></div>
-      <div class="resizer" data-direction="vertical">
-        <gv-icon shape="design:horizontal"></gv-icon>
+      <div class="resizer" data-direction="${this.direction}">
+        <gv-icon shape="${this.shape}"></gv-icon>
         <div class="actions">
-          <gv-icon shape="layout:layout-right-panel-2"></gv-icon>
+          <gv-icon class="layout-icon" shape="layout:layout-right-panel-2"></gv-icon>
           <gv-button small link class="action" icon="layout:layout-bottom-panel" title="Maximize top" @gv-button:click="${this.maximizeTop}"></gv-button>
           <gv-button small link class="action" icon="layout:layout-horizontal-2" title="Split screen" @gv-button:click="${this.split}"></gv-button>
           <gv-button small link class="action" icon="layout:layout-top-panel-6" title="Maximize bottom" @gv-button:click="${this.maximizeBottom}"></gv-button>
