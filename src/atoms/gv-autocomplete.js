@@ -151,6 +151,10 @@ export class GvAutocomplete extends LitElement {
     this._options = options;
   }
 
+  get options () {
+    return this._options;
+  }
+
   reset () {
     this._getInput().reset();
     this._options = [];
@@ -177,7 +181,7 @@ export class GvAutocomplete extends LitElement {
   _onInput () {
     clearTimeout(this._cancellableTimeout);
     this.value = this._getInput().value;
-    if (this.value && this.value.trim().length >= this.minChars) {
+    if (this.value != null && this.value.trim().length >= this.minChars) {
       this._cancellableTimeout = setTimeout(() => {
         this._forceOpen = true;
         dispatchCustomEvent(this, 'search', this.value);
@@ -363,7 +367,6 @@ export class GvAutocomplete extends LitElement {
   }
 
   firstUpdated () {
-
     this._handlers = {
       input: this._onInput.bind(this),
       focus: this._onFocus.bind(this),
