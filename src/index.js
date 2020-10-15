@@ -48,6 +48,7 @@ export { GvDocumentation } from './organisms/gv-documentation';
 export { GvHeader } from './organisms/gv-header';
 export { GvMenu } from './organisms/gv-menu';
 export { GvPagination } from './organisms/gv-pagination';
+export { GvProperties } from './organisms/gv-properties';
 export { GvResizableViews } from './organisms/gv-resizable-views';
 export { GvResources } from './organisms/gv-resources';
 export { GvTabs } from './organisms/gv-tabs';
