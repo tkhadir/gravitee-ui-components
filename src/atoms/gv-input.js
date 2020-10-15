@@ -226,6 +226,7 @@ export class GvInput extends InputElement(LitElement) {
 
     if (changedProperties.has('value')) {
       this.getInputElement().value = this.value;
+      this.updateState(this.value);
     }
 
     if (changedProperties.has('min') && this.min != null) {
