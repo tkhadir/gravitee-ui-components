@@ -101,6 +101,7 @@ export class GvTable extends withResizeObserver(LitElement) {
           display: block;
           height: 100%;
           margin: 0.2rem;
+          box-sizing: border-box;
         }
 
         .table {
