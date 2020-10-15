@@ -47,6 +47,7 @@ export class GvSwitch extends LitElement {
       value: { type: String, reflect: true },
       label: { type: String },
       description: { type: String },
+      small: { type: Boolean, reflect: true },
     };
   }
 
@@ -93,6 +94,27 @@ export class GvSwitch extends LitElement {
           -moz-user-select: none;
           -ms-user-select: none;
           border-radius: 16px;
+        }
+        
+        :host([small]) .switch {
+          width: 25px;
+        }
+
+        :host([small]) .switch-label:before {
+          width: 10px;
+          border-radius: 10px;
+          right: 10px;
+        }
+
+        :host([small]) .switch-label {
+          height: 10px;
+          line-height: 10px;
+          border-radius: 10px;
+        }
+
+        :host([small]) .switch-title {
+          font-weight: 400;
+          font-size: 11px;
         }
 
         .switch input {
@@ -164,6 +186,7 @@ export class GvSwitch extends LitElement {
     const classes = {
       skeleton: this.skeleton,
       disabled: this.disabled,
+      small: this.small,
       switch: true,
     };
 

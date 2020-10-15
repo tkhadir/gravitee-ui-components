@@ -39,6 +39,7 @@ const conf = {
 
 const items = [
   {},
+  { small: true },
   { label: 'Subscription Resumed' },
   { label: 'Subscription Resumed', description: 'Triggered when a Subscription is created.' },
 ];
