@@ -1,0 +1,420 @@
+{
+  "name": "My API",
+  "version": "1",
+  "flows": [
+    {
+      "name": "",
+      "condition": "",
+      "enabled": true,
+      "methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "OPTIONS",
+        "TRACE",
+        "PATCH"
+      ],
+      "path": "/",
+      "operator": "STARTS WITH",
+      "pre": [
+        {
+          "policy": "rate-limit",
+          "name": "Rate Limit",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {
+            "rate": "1 req/s"
+          }
+        },
+        {
+          "policy": "api-key",
+          "name": "Check API Key",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {
+            "propagateApiKey": true
+          }
+        },
+        {
+          "policy": "transform-headers",
+          "name": "Add HTTP headers",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {
+            "add-headers": "...."
+          }
+        }
+      ],
+      "post": [
+        {
+          "policy": "url-rewriting",
+          "name": "URL Rewriting",
+          "enabled": true,
+          "description": "Description of the URL Rewriting Gravitee Policy",
+          "configuration": {}
+        },
+        {
+          "policy": "xml-json",
+          "name": "XML to JSON",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {}
+        }
+      ]
+    },
+    {
+      "name": "",
+      "path": "/products",
+      "operator": "EQUALS",
+      "enabled": false,
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "condition": "",
+      "pre": [
+        {
+          "policy": "xml-json",
+          "name": "XML to JSON",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {}
+        }
+      ],
+      "post": [
+        {
+          "policy": "json-to-xml",
+          "name": "JSON to XML",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {}
+        }
+      ]
+    },
+    {
+      "name": "",
+      "path": "/products",
+      "enabled": true,
+      "methods": [
+        "GET"
+      ],
+      "condition": "",
+      "pre": [
+        {
+          "policy": "transform-queryparams",
+          "name": "Transform Query Parameters",
+          "description": "Description of the Transform Query Parameters Policy",
+          "enabled": true,
+          "configuration": {}
+        },
+        {
+          "policy": "url-rewriting",
+          "name": "URL Rewriting",
+          "enabled": true,
+          "description": "Description of the URL Rewriting Gravitee Policy",
+          "configuration": {}
+        }
+      ],
+      "post": [
+        {
+          "policy": "json-to-xml",
+          "name": "JSON to XML",
+          "enabled": true,
+          "description": "Step description",
+          "configuration": {}
+        }
+      ]
+    }
+  ],
+  "plans": [
+    {
+      "name": "Free plan",
+      "flows": [
+        {
+          "name": "ALL free plan",
+          "enabled": true,
+          "methods": [
+            "GET",
+            "HEAD",
+            "POST",
+            "PUT",
+            "DELETE",
+            "CONNECT",
+            "OPTIONS",
+            "TRACE",
+            "PATCH"
+          ],
+          "path": "/",
+          "condition": "",
+          "pre": [
+            {
+              "policy": "rate-limit",
+              "name": "Rate Limit",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "rate": "1 req/s"
+              }
+            },
+            {
+              "policy": "api-key",
+              "name": "Check API Key",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "propagateApiKey": true
+              }
+            },
+            {
+              "policy": "transform-headers",
+              "name": "Add HTTP headers",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "add-headers": "...."
+              }
+            }
+          ],
+          "post": [
+            {
+              "policy": "url-rewriting",
+              "name": "URL Rewriting",
+              "enabled": true,
+              "description": "Description of the URL Rewriting Gravitee Policy",
+              "configuration": {}
+            },
+            {
+              "policy": "xml-json",
+              "name": "XML to JSON",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {}
+            }
+          ]
+        },
+        {
+          "name": "",
+          "path": "/products",
+          "enabled": true,
+          "methods": [
+            "POST",
+            "PUT"
+          ],
+          "condition": "",
+          "pre": [
+            {
+              "policy": "xml-json",
+              "name": "XML to JSON",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {}
+            }
+          ],
+          "post": [
+            {
+              "policy": "json-to-xml",
+              "name": "JSON to XML",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {}
+            }
+          ]
+        },
+        {
+          "name": "",
+          "path": "/products",
+          "enabled": true,
+          "methods": [
+            "GET"
+          ],
+          "condition": "",
+          "pre": [
+            {
+              "policy": "transform-queryparams",
+              "name": "Transform Query Parameters",
+              "enabled": true,
+              "description": "Description of the Transform Query Parameters Policy",
+              "configuration": {}
+            },
+            {
+              "policy": "url-rewriting",
+              "name": "URL Rewriting",
+              "enabled": true,
+              "description": "Description of the URL Rewriting Gravitee Policy",
+              "configuration": {}
+            }
+          ],
+          "post": [
+            {
+              "policy": "json-to-xml",
+              "name": "JSON to XML",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Premium plan",
+      "flows": [
+        {
+          "name": "ALL premium",
+          "path": "",
+          "methods": [],
+          "condition": "",
+          "enabled": true,
+          "pre": [
+            {
+              "policy": "rate-limit",
+              "name": "Rate Limit",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "rate": "1 req/s"
+              }
+            },
+            {
+              "policy": "api-key",
+              "name": "Check API Key",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "propagateApiKey": true
+              }
+            },
+            {
+              "policy": "transform-headers",
+              "name": "Add HTTP headers",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+                "add-headers": "...."
+              }
+            }
+          ],
+          "post": [
+            {
+              "policy": "url-rewriting",
+              "name": "URL Rewriting",
+              "enabled": true,
+              "description": "Description of the URL Rewriting Gravitee Policy",
+              "configuration": {
+              }
+            },
+            {
+              "policy": "xml-json",
+              "name": "XML to JSON",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+              }
+            }
+          ]
+        },
+        {
+          "name": "",
+          "path": "/products",
+          "enabled": true,
+          "methods": [
+            "POST",
+            "PUT"
+          ],
+          "condition": "",
+          "pre": [
+            {
+              "policy": "xml-json",
+              "name": "XML to JSON",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+
+              }
+            }
+          ],
+          "post": [
+            {
+              "policy": "json-to-xml",
+              "name": "JSON to XML",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+
+              }
+            }
+          ]
+        },
+        {
+          "name": "",
+          "path": "/products",
+          "enabled": true,
+          "methods": [
+            "GET"
+          ],
+          "condition": "",
+          "pre": [
+            {
+              "policy": "transform-queryparams",
+              "name": "Transform Query Parameters",
+              "enabled": true,
+              "description": "Description of the Transform Query Parameters Policy",
+              "configuration": {
+
+              }
+            },
+            {
+              "policy": "url-rewriting",
+              "name": "URL Rewriting",
+              "enabled": true,
+              "description": "Description of the URL Rewriting Gravitee Policy",
+              "configuration": {
+
+              }
+            }
+          ],
+          "post": [
+            {
+              "policy": "json-to-xml",
+              "name": "JSON to XML",
+              "enabled": true,
+              "description": "Step description",
+              "configuration": {
+
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "type": "cache",
+      "enabled": true,
+      "name": "my-cache",
+      "configuration": {
+        "timeToIdleSeconds": 0,
+        "timeToLiveSeconds": 0,
+        "maxEntriesLocalHeap": 1000
+      }
+    }
+  ],
+  "properties": [
+    {
+      "name": "Property 1",
+      "value": "Value 1"
+    },
+    {
+      "name": "Property 2",
+      "value": "Value 2"
+    },
+    {
+      "name": "Property 3",
+      "value": "Value 3"
+    }
+  ]
+}

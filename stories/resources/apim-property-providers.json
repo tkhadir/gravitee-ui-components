@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": "custom-http",
+      "name": "Custom (HTTP)",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "title": "Http service URL",
+            "description": "http://localhost",
+            "type": "string",
+            "pattern": "^(http://|https://)"
+          },
+          "transformation": {
+            "title": "Transformation (JOLT Specification)",
+            "description": "",
+            "type": "string",
+            "default": "[\n  {\n    \"key\": 1,\n    \"value\": \"https://north-europe.company.com/\"\n  },\n  {\n    \"key\": 2,\n    \"value\": \"https://north-europe.company.com/\"\n  },\n  {\n    \"key\": 3,\n    \"value\": \"https://south-asia.company.com/\"\n  }\n]",
+            "x-schema-form": {
+              "type": "codemirror",
+              "codemirrorOptions": {
+                "lineWrapping": true,
+                "lineNumbers": true,
+                "allowDropFileTypes": true,
+                "autoCloseTags": true,
+                "mode": "javascript"
+              }
+            }
+          }
+        },
+        "required": [
+          "url",
+          "transformation"
+        ]
+      }
+    }
+  ]
+}
