@@ -32,12 +32,15 @@ import 'codemirror/addon/lint/yaml-lint';
 import 'codemirror/addon/display/placeholder';
 import { i18n } from '../lib/i18n';
 import { shapeClipboard, shapeCopied } from '../styles/shapes';
+import { dispatchCustomEvent } from '../lib/events';
 
 /**
  * Code component
  *
  * ## Details
  * * has @theme facet
+ *
+ * @fires gv-code:input - input events with the `value` on `detail`
  *
  * @attr {String} label - code language
  * @attr {String} value - code content to be highlighted
@@ -797,6 +800,7 @@ export class GvCode extends LitElement {
 
   _onChange (cm) {
     this.value = cm.getValue();
+    dispatchCustomEvent(this, 'input', this.value);
   }
 
   connectedCallback () {
